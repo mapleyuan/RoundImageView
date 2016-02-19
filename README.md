@@ -19,8 +19,6 @@ Usage
             maple:borderWidth_Ri="5dp"
             maple:borderColor_Ri="@android:color/white"
             />
-            
-            
 
 
 Developed By
