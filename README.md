@@ -6,8 +6,10 @@ An imageview that provide some usual shapes.
  
 Usage
 ------------
+
+
 <com.maple.roundimageview.RoundImageView
-            xmlns:maple="http://schemas.android.com/apk/res-auto"
+           xmlns:maple="http://schemas.android.com/apk/res-auto"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:scaleType="fitXY"
