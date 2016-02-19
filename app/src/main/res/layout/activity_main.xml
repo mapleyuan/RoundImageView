@@ -1,19 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
-
-    <com.maple.roundimageview.RoundImageView
-        xmlns:maple="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/socially_register_sex_image"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/test"
-        android:layout_centerInParent="true"
-        maple:maskType="CIRCLE"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@android:color/black">
+        <com.maple.roundimageview.RoundImageView
+            xmlns:maple="http://schemas.android.com/apk/res-auto"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/kobe1"
+            android:layout_centerInParent="true"
+            maple:maskType="RECTANGLE"
+            maple:borderWidth_Ri="5dp"
+            maple:borderColor_Ri="@android:color/white"
+            />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
         />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@android:color/black">
+        <com.maple.roundimageview.RoundImageView
+            xmlns:maple="http://schemas.android.com/apk/res-auto"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/kobe3"
+            maple:maskType="CIRCLE"
 
-</RelativeLayout>
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50dp"
+            />
+        <com.maple.roundimageview.RoundImageView
+            xmlns:maple="http://schemas.android.com/apk/res-auto"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/kobe3"
+            maple:maskType="CIRCLE"
+            maple:borderWidth_Ri="2dp"
+            maple:borderColor_Ri="@android:color/holo_green_light"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="50dp"
+            android:layout_alignParentRight="true"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@android:color/black">
+        <com.maple.roundimageview.RoundImageView
+            xmlns:maple="http://schemas.android.com/apk/res-auto"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/kobe4"
+            maple:maskType="ROUNDRECTANGLE"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50dp"
+            />
+        <com.maple.roundimageview.RoundImageView
+            xmlns:maple="http://schemas.android.com/apk/res-auto"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/kobe4"
+            maple:maskType="ROUNDRECTANGLE"
+            maple:borderWidth_Ri="5dp"
+            maple:borderColor_Ri="@android:color/white"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="50dp"
+            android:layout_alignParentRight="true"
+            />
+
+
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@android:color/black"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+        <com.maple.roundimageview.RoundImageView
+            xmlns:maple="http://schemas.android.com/apk/res-auto"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/kobe2"
+            android:layout_centerInParent="true"
+            maple:maskType="ROUNDRECTANGLETOP"
+            maple:borderWidth_Ri="5dp"
+            maple:borderColor_Ri="@android:color/black"
+            />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

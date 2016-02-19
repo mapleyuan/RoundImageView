@@ -3,8 +3,12 @@ package com.maple.roundimageview;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -20,7 +24,10 @@ public class RoundImageView extends ImageView {
     private MaskType mMaskType;
     private Path mPath;
     private float mRadius;
-
+    private float mBorderWidth;
+    private Paint mBorderPaint;
+    private int mBorderColor;
+    private static final int DEFAULT_BORDER_COLOR = Color.WHITE;
 
     private static final MaskType[] sMaskTypeArray = {
             MaskType.RECTANGLE,
@@ -47,6 +54,10 @@ public class RoundImageView extends ImageView {
         if (index >= 0) {
             setMaskType(sMaskTypeArray[index]);
         }
+
+        mBorderColor = a.getColor(R.styleable.RoundImageView_borderColor_Ri, Color.BLACK);
+        mBorderWidth = a.getDimensionPixelSize(R.styleable.RoundImageView_borderWidth_Ri, 0);
+
         a.recycle();
     }
 
@@ -54,6 +65,9 @@ public class RoundImageView extends ImageView {
         mMaskType = MaskType.CIRCLE;
         mRadius = 20;
         mPath = new Path();
+        mBorderPaint = new Paint();
+        mBorderColor = DEFAULT_BORDER_COLOR;
+        mBorderPaint.setColor(mBorderColor);
     }
 
     /**
@@ -63,7 +77,33 @@ public class RoundImageView extends ImageView {
      * @param radius
      */
     public void setRadius(int radius) {
+        if (mRadius == radius) {
+            return;
+        }
+
         mRadius = radius;
+        invalidate();
+    }
+
+    public void setBorderColor(@ColorInt int color) {
+        if (mBorderColor == color) {
+            return;
+        }
+
+        mBorderColor = color;
+        mBorderPaint.setColor(color);
+        invalidate();
+    }
+
+    public void setBorderColorResource(@ColorRes int colorResource) {
+        setBorderColor(getContext().getResources().getColor(colorResource));
+    }
+
+    public void setBorderWidth(float borderWidth) {
+        if (mBorderWidth == borderWidth) {
+            return;
+        }
+        mBorderWidth = borderWidth;
         invalidate();
     }
 
@@ -82,10 +122,13 @@ public class RoundImageView extends ImageView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-
+        canvas.save();
         drawPath();
         canvas.clipPath(mPath);
         super.onDraw(canvas);
+        canvas.restore();
+        drawCanvas(canvas);
+
     }
 
     private void drawPath() {
@@ -94,7 +137,7 @@ public class RoundImageView extends ImageView {
         switch (mMaskType) {
             case RECTANGLE:
                 mPath.reset();
-                mPath.addRect(new RectF(0, 0, width, height), Path.Direction.CW);
+                mPath.addRect(new RectF(mBorderWidth / 2, mBorderWidth / 2, width - mBorderWidth / 2, height - mBorderWidth / 2), Path.Direction.CW);
                 mPath.close();
                 break;
             case CIRCLE:
@@ -105,7 +148,7 @@ public class RoundImageView extends ImageView {
                 break;
             case ROUNDRECTANGLE:
                 mPath.reset();
-                mPath.addRoundRect(new RectF(0, 0, width, height), mRadius, mRadius, Path.Direction.CW);
+                mPath.addRoundRect(new RectF(mBorderWidth / 4, mBorderWidth / 4, width - mBorderWidth / 4, height - mBorderWidth / 4), mRadius, mRadius, Path.Direction.CW);
                 mPath.close();
                 break;
             case ROUNDRECTANGLETOP:
@@ -117,6 +160,31 @@ public class RoundImageView extends ImageView {
                 mPath.close();
                 break;
         }
+    }
+
+    private void drawCanvas(Canvas canvas) {
+        int width = getWidth();
+        int height = getHeight();
+        if (mBorderWidth <= 0) {
+            return;
+        }
+        mBorderPaint.setColor(mBorderColor);
+        mBorderPaint.setStrokeWidth(mBorderWidth);
+        mBorderPaint.setStyle(Paint.Style.STROKE);
+        mBorderPaint.setAntiAlias(true);
+        switch (mMaskType) {
+            case RECTANGLE:
+                canvas.drawRect(new RectF(0, 0, width, height), mBorderPaint);
+                break;
+            case CIRCLE:
+                float r = Math.min(width, height) / 2;
+                canvas.drawCircle(width / 2, height / 2, r - mBorderWidth / 2, mBorderPaint);
+                break;
+            case ROUNDRECTANGLE:
+                canvas.drawRoundRect(new RectF(0, 0, width, height), mRadius, mRadius,mBorderPaint);
+                break;
+        }
+
     }
 
 
